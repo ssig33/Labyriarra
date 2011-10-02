@@ -1,0 +1,13 @@
+=hidden_field_tag :action, params[:action]
+%span.h2.left#channel_name=params[:id]
+%span.right
+  =link_to "Channels", {action: :index}, {class: "reload_index metro_link"}
+%span.clear
+%div
+  =form_tag({action: :update}, remote: true) do
+    =hidden_field_tag "id", params[:id]
+    =text_field_tag "text", nil, style: "width:100%"
+    %br
+    =submit_tag "Update"
+%div#channel_log
+  %span#channel_insert_before

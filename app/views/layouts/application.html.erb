@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>WebTiarra</title>
+  <title>Labyriarra</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+<%= hidden_field_tag :controller, params[:controller] %>
+<div data-pjax-container="true" id="all">
+  <%= yield %>
+</div>
 
-<%= yield %>
 
 </body>
 </html>
