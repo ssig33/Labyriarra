@@ -36,7 +36,7 @@ $(->
       setTimeout(->
         name = $("#channel_name").text()
         if name != "" and name != undefined
-          last_id = $("log_id")[0]
+          last_id = $(".log_id")[0]
           if last_id == undefined
             $.get("/api/channel/"+encodeURIComponent(name), (data)->
               $("#channel_insert_before").after(data.html)
