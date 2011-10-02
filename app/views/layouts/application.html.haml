@@ -1,0 +1,16 @@
+!!!
+%title Labyriarra
+= stylesheet_link_tag    "application"
+= javascript_include_tag "application"
+= csrf_meta_tags
+= hidden_field_tag :controller, params[:controller]
+%meta{content: 'width=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=no', name: 'viewport'}
+%meta{name: "viewport", content: "width=device-width"}
+%meta{name: "apple-mobile-web-app-capable", content: "yes"}
+%link{rel: "apple-touch-icon", href: "/icon.png"}
+%link{rel: "apple-touch-icon", sizes: "72x72", href: "/icon-ipad.png"}
+%link{rel: "apple-touch-icon", sizes: "114x114", href: "/icon-iphone4.png"}
+%meta{name: "apple-mobile-web-app-status-bar-style", content: "black-translucent"}
+.all
+  %span.h1 Labyriarra
+  #main= yield

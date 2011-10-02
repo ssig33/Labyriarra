@@ -20,13 +20,14 @@ $(->
       , 500)
 
     index = ->
-      
+      $("title").text("Labyriarra")
       $.get("/api/channels", (data)->
         $("#channels").html(data.html)
         
       )
 
     channel = ->
+      $("title").text("Labyriarra "+$("#channel_name").text())
 
     loaded = ()->
       console.log $("#action").val()
@@ -47,7 +48,7 @@ $(->
     loaded()
     channel_loop()
 
-    $("a.reload_index").pjax("#all")
-    $("a.channel_link").pjax("#all")
-    $("a.reload_index").pjax("#all")
+    $("a.reload_index").pjax("#main")
+    $("a.channel_link").pjax("#main")
+    $("a.reload_index").pjax("#main")
 )

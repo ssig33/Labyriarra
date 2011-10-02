@@ -5,3 +5,4 @@ tmp/
 .sass-cache/
 database.yml
 config.yml
+unicorn.conf
