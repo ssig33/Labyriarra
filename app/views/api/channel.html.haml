@@ -1,6 +1,6 @@
 -@log.each do |l|
   %span.body
     =raw l.html
-    %span.none=l.id
+    %span.none.log_id=l.id
     %span.lightgray.x-small=l.created_at.to_s(:db)
     %br

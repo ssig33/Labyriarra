@@ -1,5 +1,5 @@
 class ApiController < ApplicationController
-  before_filter :api
+  before_filter :api, :login
   layout :false
 
   def channels

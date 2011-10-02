@@ -1,2 +1,2 @@
 -@channels.each do |c|
-  %p=link_to c.name, {controller: :home, action: :channel, id: CGI.escape(c.name)}, {class: "reload_index metro_link"}
+  %p=link_to c.name, {controller: :home, action: :channel, id: CGI.escape(c.name)}, {class: "channel_link metro_link"}

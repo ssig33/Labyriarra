@@ -1,10 +1,13 @@
 class HomeController < ApplicationController
+  before_filter :login
   def index
-    render(layout: false) if request.headers["X-PJAX"]
+    render(layout: false) if request.headers["X-PJAX"] or params[:mobile_xhr] == "true"
   end
 
   def channel
-    render(layout: false) if request.headers["X-PJAX"]
+    @channel = Channel.where(name: params[:id]).first
+    @log = @channel.log(params[:last_id])
+    render(layout: false) if request.headers["X-PJAX"] or params[:mobile_xhr] == "true"
   end
 
   def update

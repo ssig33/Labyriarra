@@ -11,3 +11,9 @@
     =submit_tag "Update"
 %div#channel_log
   %span#channel_insert_before
+  -@log.each do |l|
+    %span.body
+      =raw l.html
+      %span.none.log_id=l.id
+      %span.lightgray.x-small=l.created_at.to_s(:db)
+      %br
