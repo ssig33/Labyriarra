@@ -20,4 +20,5 @@ gem 'pjax-rails'
 
 group :test do
   gem 'turn', :require => false
+  gem 'rspec-rails'
 end

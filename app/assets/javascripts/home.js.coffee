@@ -4,17 +4,30 @@ $(->
     user_agent.indexOf('iPhone') > -1 or user_agent.indexOf('iPad') > -1 or user_agent.indexOf('Windows Phone') > -1
   
   if $("#controller").val() == "home"
+    unless is_mobile()
+      $("a.reload_index").pjax("#main")
+      $("a.channel_link").pjax("#main")
+      $("a.next_unread").pjax("#main")
+      $("body").bind('pjax:start', ->).bind('pjax:end', -> loaded())
+    
     initialize_index_mobile = ->
       $(".reload_index").removeAttr("href")
       $(".channel_link").removeAttr("href")
-      $(".channel_link").click(-> open_channel($(this).text()))
+      $(".channel_link").click(-> open_channel($(this).attr("name")))
       localStorage["location"] = "index"
     initialize_channel_mobile = ->
       $(".reload_index").removeAttr("href")
       $(".channel_link").removeAttr("href")
+      $(".next_unread").removeAttr("href")
+      $(".next_unread").click(-> open_next())
       $(".reload_index").click(-> open_index())
       localStorage["location"] = "channel"
       localStorage["channel"] = $("#channel_name").text()
+
+    open_next = ->
+      $.get "/home/next?mobile_xhr=true", (data)->
+        $("#main").html data
+        initialize_channel_mobile()
 
     open_channel = (name)->
       $.get "/home/channel/"+encodeURIComponent(name)+"?mobile_xhr=true", (data)->
@@ -27,10 +40,7 @@ $(->
       $.get "/home/index?mobile_xhr=true", (data)->
         $("#main").html data
         index()
-    unless is_mobile()
-      $("a.reload_index").pjax("#main")
-      $("a.channel_link").pjax("#main")
-      $("body").bind('pjax:start', ->).bind('pjax:end', -> loaded())
+    
 
     count_chat = ->
       count = 0
@@ -68,6 +78,8 @@ $(->
 
     channel = ->
       $("title").text("Labyriarra "+$("#channel_name").text())
+      unless is_mobile()
+        history.replaceState null, "", "/home/channel/"+encodeURIComponent($("#channel_name").text()) if location.pathname == "/home/next"
 
     loaded = ()->
       switch $("#action").val()

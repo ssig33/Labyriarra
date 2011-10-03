@@ -1,17 +1,47 @@
 class Channel < ActiveRecord::Base
   set_table_name :channel
   has_many :logs
+  has_one :unread
+
+  def self.next_unread
+    r = nil
+    Channel.all.reverse.each{|c| r = c; break if c.unread?}
+    r
+  end
 
   def self.list
-    Channel.all.map{|x| [x,x.logs.order("id desc").first]}.sort{|a,b| a.last.created_at.to_i <=> b.last.created_at.to_i}.map{|x| x.first}.reverse
+    list = Channel.includes(:unread).map{|x|[x,x.logs.order("id desc").first]}.sort{|a,b| a.last.created_at.to_i <=> b.last.created_at.to_i}.reverse.map{|x| x.first}
+    list.each{|c| Unread.create channel_id: c.id unless c.unread }
+    list
   end
 
   def log last_id
     id = last_id.to_i rescue 0
     if id == 0
-      self.logs.order("id desc").limit(35).includes(:nick)
+      list = self.logs.order("id desc").limit(35).includes(:nick)
     else
-      self.logs.where("id > ?", id).order("id desc").limit(35).includes(:nick)
+      list = self.logs.where("id > ?", id).order("id desc").limit(35).includes(:nick)
     end
+    if list.size > 1
+      u= Unread.find_or_create_by_channel_id(self.id)
+      u.log_id = list.first.id
+      u.save
+    end
+    list
+  end
+
+  def unread?
+    if self.unread.log_id
+      count = self.logs.where("id > ?", self.unread.log_id).count
+      if count == 0
+        false
+      else
+        count
+      end
+    else
+      self.logs.count
+    end
+  rescue
+    false
   end
 end

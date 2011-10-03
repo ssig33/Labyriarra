@@ -1,11 +1,13 @@
-=hidden_field_tag :action, params[:action]
-%span.h2.left#channel_name=params[:id]
+=hidden_field_tag :action, "channel"
+%span.h2.left#channel_name=@channel.name
+%br
 %span.right
   =link_to "Channels", {action: :index}, {class: "reload_index metro_link"}
+  =link_to "Next", {action: :next}, {class: "next_unread metro_link"}
 %span.clear
 %div
   =form_tag({action: :update}, remote: true) do
-    =hidden_field_tag "id", params[:id]
+    =hidden_field_tag "id", @channel.name
     =text_field_tag "text", nil, style: "width:100%"
     %br
     =submit_tag "Update"
