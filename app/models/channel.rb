@@ -10,8 +10,10 @@ class Channel < ActiveRecord::Base
   end
 
   def self.list
-    list = Channel.includes(:unread).map{|x|[x,x.logs.order("id desc").first]}.sort{|a,b| a.last.created_at.to_i <=> b.last.created_at.to_i}.reverse.map{|x| x.first}
-    list.each{|c| Unread.create channel_id: c.id unless c.unread }
+    list = Channel.find(Log.order("id desc").select("distinct channel_id").map{|x| x.channel_id})
+    unreads = []
+    Unread.where(channel_id: list.map{|x| x.id}).each{|x| unreads << x.channel_id}
+    (list.map{|x| x.id} - unreads).each{|x| Unread.create channel_id: x}
     list
   end
 
