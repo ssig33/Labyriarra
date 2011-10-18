@@ -22,7 +22,7 @@ class Channel < ActiveRecord::Base
     else
       list = self.logs.where("id > ?", id).order("id desc").limit(35).includes(:nick)
     end
-    if list.size > 1
+    if list.size > 0
       u= Unread.find_or_create_by_channel_id(self.id)
       u.log_id = list.first.id
       u.save
