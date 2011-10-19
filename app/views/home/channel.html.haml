@@ -19,3 +19,6 @@
       %span.none.log_id=l.id
       %span.lightgray.x-small=l.created_at.to_s(:db)
       %br
+%div
+  %p
+    =link_to "Log", action: :log, id: @channel.id, date: Date.today.to_s

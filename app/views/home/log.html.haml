@@ -1,0 +1,11 @@
+%h1="Log of #{@channel.name}"
+%h2=params[:date]
+%h3=link_to "Top", "/"
+%div
+  -@log.each do |l|
+    %span.body
+      =raw l.html
+      %span.none.log_id=l.id
+      %span.lightgray.x-small=l.created_at.to_s(:db)
+      %br
+

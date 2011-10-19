@@ -24,4 +24,10 @@ class HomeController < ApplicationController
       render template: "home/channel"
     end
   end
+
+  def log
+    @channel = Channel.where(id: params[:id]).first
+    date = Date.parse params[:date]
+    @log = @channel.logs.where("created_at > ?", Time.parse("#{date} 00:00:00")).where("created_at < ?", Time.parse("#{date+1} 00:00:00")).includes(:nick)
+  end
 end
