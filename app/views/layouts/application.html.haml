@@ -1,10 +1,12 @@
 !!!
-%html{manifest: "/irc.manifest"}
+%html
   %title Labyriarra
   = stylesheet_link_tag    "application"
   = javascript_include_tag "application"
   = csrf_meta_tags
   = hidden_field_tag :controller, params[:controller]
+  :css
+    @-ms-viewport{ width: device-width; }
   %meta{content: 'width=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=no', name: 'viewport'}
   %meta{name: "viewport", content: "width=device-width"}
   %meta{name: "apple-mobile-web-app-capable", content: "yes"}
@@ -15,3 +17,5 @@
   .all
     %span.h1 IRC
     #main= yield
+  %div{style: 'display:none'}
+    %span#action=params[:action]

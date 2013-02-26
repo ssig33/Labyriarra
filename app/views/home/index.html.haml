@@ -2,4 +2,4 @@
   %span.h2 Channels
   %br
   =hidden_field_tag :action, params[:action]
-  #channels
+  #channels=raw(open("#{Rails.root}/public/channel.html").read)

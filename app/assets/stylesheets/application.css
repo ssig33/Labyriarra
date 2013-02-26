@@ -5,6 +5,16 @@
  *= require_self
  *= require_tree . 
 */
+
+@-ms-viewport{ width: device-width; }
+@media screen and (max-width: 800px){
+  @-ms-viewport { width: 480px !important; }
+}
+@media screen and (max-width: 480px) {
+  @-ms-viewport { width: 320px !important; }
+}
+
+
 body{
   text-align:center;
   background:black;

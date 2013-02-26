@@ -28,6 +28,6 @@ class HomeController < ApplicationController
   def log
     @channel = Channel.where(id: params[:id]).first
     date = Date.parse params[:date]
-    @log = @channel.logs.where("created_at > ?", Time.parse("#{date} 00:00:00")).where("created_at < ?", Time.parse("#{date+1} 00:00:00")).includes(:nick)
+    @log = @channel.logs.where("created_at > ?", date.to_time.to_s(:db)).where("created_at < ?", date.tomorrow.to_time.to_s(:db)).includes(:nick).order('id desc')
   end
 end
