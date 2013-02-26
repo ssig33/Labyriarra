@@ -5,6 +5,6 @@ class Update
     self.path = args[:path]
   end
   def post name, txt
-    RestClient.post("http://ircapi.ssig33.com/", q: ['PRIVMSG', name, txt].to_json)
+    RestClient.post(CONFIG['Endpoint'], q: ['PRIVMSG', name, txt].to_json)
   end
 end
