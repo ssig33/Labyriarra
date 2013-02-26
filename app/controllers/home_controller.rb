@@ -1,13 +1,16 @@
 class HomeController < ApplicationController
   before_filter :login
   def index
-    render(layout: false) if request.headers["X-PJAX"] or params[:mobile_xhr] == "true" or params[:_pjax] == "true"
   end
 
   def channel
     @channel = Channel.where(name: params[:id]).first
     @log = @channel.log(params[:last_id])
-    render(layout: false) if request.headers["X-PJAX"] or params[:mobile_xhr] == "true" or params[:_pjax] == "true"
+    if params[:update]
+      render json: {html: render_to_string(partial: 'logs', locals: {log: @log})} and return
+    else
+      render and return
+    end
   end
 
   def update
@@ -17,12 +20,7 @@ class HomeController < ApplicationController
 
   def next
     @channel = Channel.next_unread
-    @log = @channel.log(params[:last_id])
-    if request.headers["X-PJAX"] or params[:mobile_xhr] == "true" or params[:_pjax] == "true"
-      render template: "home/channel", layout: false
-    else
-      render template: "home/channel"
-    end
+    redirect_to channel_path(@channel.name)
   end
 
   def log

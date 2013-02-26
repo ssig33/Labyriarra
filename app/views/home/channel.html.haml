@@ -2,23 +2,18 @@
 %span.h2.left#channel_name=@channel.name
 %br
 %span.right
-  =link_to "Channels", {action: :index}, {class: "reload_index metro_link"}
-  =link_to "Next", {action: :next}, {class: "next_unread metro_link"}
+  =link_to "Channels", home_path, {class: "reload_index metro_link"}
+  =link_to "Next", next_path, {class: "next_unread metro_link"}
 %span.clear
 %div
-  =form_tag({action: :update}, remote: true) do
+  =form_tag(update_path, remote: true) do
     =hidden_field_tag "id", @channel.name
     =text_field_tag "text", nil, style: "width:100%"
     %br
     =submit_tag "Update"
 %div#channel_log
-  %span#channel_insert_before
-  -@log.each do |l|
-    %span.body
-      =raw l.html
-      %span.none.log_id=l.id
-      %span.lightgray.x-small=l.created_at.to_s(:db)
-      %br
+  %span#channel_insert_before=''
+  = render partial: 'logs', locals: {log: @log}
 %div
   %p
-    =link_to "Log", action: :log, id: @channel.id, date: Date.today.to_s
+    =link_to "Log", log_path(id: @channel.id, date: Date.today.to_s)
