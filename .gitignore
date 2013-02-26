@@ -6,5 +6,6 @@ tmp/
 database.yml
 config.yml
 unicorn.conf
+public/channel.html
 *.log
 *.pid
