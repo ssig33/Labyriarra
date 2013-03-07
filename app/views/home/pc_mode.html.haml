@@ -1,0 +1,15 @@
+!!!
+%title Labyriarra
+= stylesheet_link_tag "p/application"
+= javascript_include_tag "p/application"
+= csrf_meta_tags
+%meta{name: "viewport", content: "width=device-width"}
+%header
+  %h1 IRC
+#contents
+  .left
+    =link_to 'Refresh', 'javascript:void(0)', id: 'refresh_channel', style: 'color:red'
+    #channels=raw(open("#{Rails.root}/public/channel_pc.html").read)
+  .right
+    %iframe
+  .clear

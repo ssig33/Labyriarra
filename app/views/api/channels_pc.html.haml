@@ -1,0 +1,8 @@
+-@channels.each do |c|
+  -unread = c.unread?
+  %p
+    -if unread
+      =link_to "#{c.name}(#{unread})", 'javascript:void(0)', {class: "metro_link unread_channel", name: c.name, id: c.id, path: channel_path(c.name, pc: true)}
+    -else
+      =link_to "#{c.name}", 'javascript:void(0)', {class: "metro_link", name: c.name, id: c.id, path: channel_path(c.name, pc: true)}
+

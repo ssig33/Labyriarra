@@ -7,5 +7,7 @@ database.yml
 config.yml
 unicorn.conf
 public/channel.html
+public/assets/*
+public/channel_pc.html
 *.log
 *.pid

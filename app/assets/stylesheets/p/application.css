@@ -1,0 +1,23 @@
+@-ms-viewport{ width: device-width; }
+body{
+  background:black;
+  color:white;
+  font-family:serif;
+}
+a{ color:white;}
+img{ max-width:100%; }
+.lightgray{color:lightgray}
+span.none{ display:none; }
+.right{ float:left}
+.clear{ clear:both; }
+.nick{color:mistyrose}
+a.unread_channel{ color:mistyrose }
+html,body{height:97%}
+iframe{border: 0px black solid;height:100%;width:100%}
+.left{
+  float:left;
+  height:100%;
+  overflow-y:scroll;
+  overflow-x:hidden;
+  max-width:200px;
+}
