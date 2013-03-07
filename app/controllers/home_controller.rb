@@ -3,6 +3,10 @@ class HomeController < ApplicationController
   def index
   end
 
+  def pc_mode
+    render layout: false
+  end
+
   def channel
     @channel = Channel.where(name: params[:id]).first
     @log = @channel.log(params[:last_id])

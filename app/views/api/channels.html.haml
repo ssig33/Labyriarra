@@ -1,6 +1,7 @@
 -@channels.each do |c|
   -unread = c.unread?
-  -if unread
-    %p=link_to "#{c.name}(#{unread})", {controller: :home, action: :channel, id: CGI.escape(c.name)}, {class: "metro_link unread_channel", name: c.name}
-  -else
-    %p=link_to c.name, {controller: :home, action: :channel, id: CGI.escape(c.name)}, {class: "metro_link", name: c.name}
+  %p
+    -if unread
+      =link_to "#{c.name}(#{unread})", {controller: :home, action: :channel, id: CGI.escape(c.name)}, {class: "metro_link unread_channel", name: c.name}
+    -else
+      =link_to c.name, {controller: :home, action: :channel, id: CGI.escape(c.name)}, {class: "metro_link", name: c.name}
