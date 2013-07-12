@@ -11,3 +11,4 @@ public/assets/*
 public/channel_pc.html
 *.log
 *.pid
+vendor/bundle

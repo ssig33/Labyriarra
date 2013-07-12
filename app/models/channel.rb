@@ -1,5 +1,5 @@
 class Channel < ActiveRecord::Base
-  set_table_name :channel
+  self.table_name = :channel
   has_many :logs
   has_one :unread
 
