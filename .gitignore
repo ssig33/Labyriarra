@@ -12,3 +12,4 @@ public/channel_pc.html
 *.log
 *.pid
 vendor/bundle
+public/channel_pc.html
