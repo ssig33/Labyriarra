@@ -5,7 +5,6 @@ class SessionsController < ApplicationController
   def create
     if params[:password] == CONFIG["Password"]
       session[:login] = true
-      session.map{|x|x}
       redirect_to controller: :home, action: :index
     else
       redirect_to action: :index   
